@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -25,7 +26,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.add');
+        return view('product.create');
     }
 
     /**
@@ -34,15 +35,19 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         $newPost = Product::create([
             'title' => $request->title,
+            'description' => $request->description,
             'short_notes' => $request->short_notes,
-            'price' => $request->price
+            'price' => $request->price,
+            'image' => $request->image,
+            'slug' => $request->slug,
         ]);
 
-        return redirect('product/' . $newPost->id . '/edit');
+        // return redirect('product/' . $newPost->id . '/edit');
+        return view('welcome');
     }
 
     /**
@@ -53,7 +58,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        // $product = Product::where('id', $product->id)->first();
+        // return $product->id;
     }
 
     /**
@@ -80,8 +86,11 @@ class ProductController extends Controller
     {
         $product->update([
             'title' => $request->title,
+            'description' => $request->description,
             'short_notes' => $request->short_notes,
-            'price' => $request->price
+            'price' => $request->price,
+            'image' => $request->image,
+            'slug' => $request->slug,
         ]);
 
         return redirect('product/' . $product->id . '/edit');

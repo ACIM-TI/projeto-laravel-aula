@@ -19,3 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/products', [ProductController::class, 'index'])->name('products');
+// Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.get');
+Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('products.delete');
